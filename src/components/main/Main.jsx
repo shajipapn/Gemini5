@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { assets } from "../../assets/assets";
 import "./main.css";
 import { Context } from "../../context/Context";
+import confetti from "canvas-confetti";
+
 const Main = () => {
 	const {
 		onSent,
@@ -13,9 +15,19 @@ const Main = () => {
 		input,
 	} = useContext(Context);
 
-    const handleCardClick = (promptText) => {
-			setInput(promptText);
-		};
+	const handleCardClick = (promptText) => {
+		setInput(promptText);
+	};
+
+	const handleSendClick = () => {
+		onSent();
+		confetti({
+			particleCount: 100,
+			spread: 70,
+			origin: { y: 0.6 },
+		});
+	};
+
 	return (
 		<div className="main">
 			<div className="nav">
@@ -111,9 +123,7 @@ const Main = () => {
 							<img
 								src={assets.send_icon}
 								alt=""
-								onClick={() => {
-									onSent();
-								}}
+								onClick={handleSendClick}
 							/>
 						</div>
 					</div>
